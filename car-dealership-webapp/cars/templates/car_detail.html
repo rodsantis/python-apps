@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    {{ object.model }}
+{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center my-5">
+        <div class="card" style="width: 40rem;">
+            {% if object.photo %}
+                <img src="{{ object.photo.url }}" class="card-img-top" alt="{{ object.model }} - {{ object.brand }}">
+            {% else %}
+                <div style="margin: 7vw;">
+                    <img src="..." alt="No photo available" class="card-img-top" style="width: auto; height: auto;">
+                </div>
+            {% endif %}
+                <div class="card-body">
+                <h5 class="card-title"> {{ object.brand }}  {{ object.model }} </h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Made year: {{ object.factory_year }} </li>
+                <li class="list-group-item">Model year: {{ object.model_year }} </li>
+                <li class="list-group-item">Plate: {% if not object.plate %} Not in Record {% else %} {{ object.plate }} {% endif %}</li>
+                <li class="list-group-item">Price: {{ object.value }} </li>
+                {% if object.bio %}
+                    <li class="list-group-item">Description: {{ object.bio }} </li>
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+                <div class="card-body">
+                    <a href="{% url 'car_update' pk=object.pk %}" class="btn btn-primary">Update</a>
+                    <a href="{% url 'car_delete' pk=object.pk %}" class="btn btn-danger">Delete</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

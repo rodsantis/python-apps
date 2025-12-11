@@ -1,0 +1,6 @@
+# Python==3.13.5
+Django==5.2.4
+Pillow
+openai==1.106.1
+psycopg[binary,pool]==3.2.10
+python-dotenv

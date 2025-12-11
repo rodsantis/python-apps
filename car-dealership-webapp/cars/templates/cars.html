@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+    {% block title %}
+        Cars
+    {% endblock %}
+
+    {% block body %}
+        <div class="container-md my-3">
+            <form method="get" action="{% url 'cars_list' %}">
+                <div class="mb-3">
+                    <label for="car_search" class="form-label">Search for a Car Model:</label>
+                    <input type="text" name="search" class="form-control" id="car_search" aria-describedby="carsearching" placeholder="Type what you are looking for here...">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4 my-3 mx-3">
+            {% for car in cars %}
+                <a href="{% url 'car_detail' car.pk %}" style="text-decoration: none;" >
+                    <div class="col">
+                        <div class="card h-100">
+                            {% if car.photo %}
+                                <img src="{{ car.photo.url }}" class="card-img-top" alt="{{ car.model }} - {{ car.brand }}" style="width: auto; height: auto;">
+                            {% else %}
+                                <div style="margin: 7vw;">
+                                    <img src="..." alt="No photo available" class="card-img-top" style="width: auto; height: auto;">
+                                </div>
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ car.brand}} - {{ car.model }}</h5>
+                                <p class="card-text"> Model year {{ car.factory_year }}, at ${{ car.value }} </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% endblock %}

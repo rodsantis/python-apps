@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Deleting Car
+{% endblock %}
+
+{% block body %}
+    <div class="my-3 mx-3">
+        <form method="post">
+            {% csrf_token %}
+            <h1>Delete Car: {{ object.brand }} - {{ object.model }} </h1>
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Delete" class="btn btn-danger">
+            <a href="{% url 'cars_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+{% endblock %}
